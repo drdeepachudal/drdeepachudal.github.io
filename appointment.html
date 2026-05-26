@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment - Dr. Deepa Chudal | Gynecologist & Infertility Expert</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    /* CSS Variables - Trusted Medical Color Scheme for Women's Health */
+    :root {
+      --primary: #7B2C6F;        /* Deep plum - compassionate & professional */
+      --primary-light: #9B428C;
+      --primary-dark: #5F2355;
+      --primary-soft: #F9F0F7;   /* Soft background for women's health */
+      
+      --accent: #2D6A4F;         /* Fertile green - hope, growth, trust */
+      --accent-light: #409C7A;
+      --accent-soft: #EAF9F2;
+      
+      --background: #FFFFFF;
+      --background-alt: #FFFBFD;
+      --foreground: #1E2A3E;
+      --foreground-light: #4B5B6C;
+      --foreground-muted: #6F7D8C;
+      
+      --border: #E9E2E8;
+      --border-focus: var(--primary);
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.1);
+      
+      --success: #2D6A4F;
+      --error: #B91C1C;
+      --warning: #E76F51;
+      
+      --border-radius-sm: 8px;
+      --border-radius-md: 12px;
+      --border-radius-lg: 16px;
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      --transition: all 0.2s ease;
+      --transition-slow: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      color: var(--foreground);
+      background: linear-gradient(135deg, var(--background-alt) 0%, #FFFFFF 100%);
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--foreground);
+    }
+
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+    h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .navbar-logo i {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--foreground);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .navbar a:hover, .navbar a.active {
+      color: var(--primary);
+      background: var(--primary-soft);
+      font-weight: 600;
+    }
+
+    .language-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      background: var(--background-alt);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .language-toggle:hover { background: var(--primary-soft); }
+    .language-toggle i { color: var(--primary); }
+
+    .book-now-btn {
+      background: var(--primary);
+      color: white !important;
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem !important;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition) !important;
+    }
+
+    .book-now-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .booking-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--border-radius-lg);
+      padding: 3rem;
+      margin-bottom: 3rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .hero-content { flex: 1; }
+    .hero-content h1 { color: white; font-size: 3rem; margin-bottom: 1rem; }
+    .hero-content p { font-size: 1.25rem; opacity: 0.95; max-width: 600px; }
+
+    .doctor-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .doctor-photo i { font-size: 7rem; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .doctor-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Booking Grid */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: slideUp 0.5s ease;
+    }
+    .form-header {
+      background: linear-gradient(135deg, var(--primary-soft) 0%, white 100%);
+      padding: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-header h2 { margin-bottom: 0.5rem; color: var(--primary); }
+    .form-body { padding: 2rem; }
+
+    .form-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .required-star { color: var(--warning); font-size: 1.2rem; }
+    .helper-text {
+      font-size: 0.8rem;
+      color: var(--foreground-muted);
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--border-radius-sm);
+      font-size: 1rem;
+      transition: var(--transition);
+      background: white;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(123, 44, 111, 0.1);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--primary-soft);
+      border-radius: var(--border-radius-sm);
+      margin: 1.5rem 0;
+    }
+    .checkbox-input { width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; accent-color: var(--primary); }
+    .cta-container {
+      position: sticky;
+      bottom: 2rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    /* Sidebar */
+    .info-sidebar { position: sticky; top: 6rem; }
+    .info-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+    .info-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-item i { color: var(--accent); width: 1.5rem; text-align: center; }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--accent-soft);
+      border-radius: var(--border-radius-sm);
+      margin: 1rem 0;
+    }
+    .trust-badge i { font-size: 2rem; color: var(--accent); }
+    .status-message {
+      padding: 1rem;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideDown 0.3s ease;
+    }
+    .status-success { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-light); }
+    .status-error { background: #FEF2F2; color: var(--error); border: 1px solid #FECACA; }
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+    .floating-buttons {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 99;
+    }
+    .floating-button {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .whatsapp-button { background: #25D366; }
+    .whatsapp-button:hover { background: #128C7E; transform: scale(1.1); }
+    .chat-button { background: var(--primary); }
+    .chat-container {
+      position: fixed;
+      bottom: 6rem;
+      right: 2rem;
+      width: 320px;
+      height: 400px;
+      background: white;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100;
+      border: 1px solid var(--border);
+    }
+    .chat-container.active { display: flex; animation: slideUp 0.3s ease; }
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .close-chat { background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer; }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      background: #F9FAFB;
+    }
+    .message {
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .message.bot { background: white; align-self: flex-start; border-bottom-left-radius: 0.25rem; box-shadow: var(--shadow-sm); }
+    .message.user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 0.25rem; }
+    .chat-input-area {
+      display: flex;
+      padding: 1rem;
+      gap: 0.5rem;
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+    }
+    .chat-input-area button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    footer {
+      background: var(--foreground);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 1024px) { .booking-grid { grid-template-columns: 1fr; } .info-sidebar { position: static; } }
+    @media (max-width: 768px) {
+      .navbar-container { flex-direction: column; gap: 1rem; }
+      .booking-hero { flex-direction: column; text-align: center; }
+      .hero-content h1 { font-size: 2rem; }
+      .chat-container { width: 280px; right: 1rem; bottom: 5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo"><i class="fas fa-female"></i><span data-en="Dr. Deepa Chudal" data-np="डा. दीपा चुडाल">Dr. Deepa Chudal</span></a>
+      <ul>
+        <li><a href="index.html" data-en="Home" data-np="गृहपृष्ठ">Home</a></li>
+        <li><a href="biography.html" data-en="Biography" data-np="जीवनी">Biography</a></li>
+        <li><a href="research.html" data-en="Research" data-np="अनुसन्धान">Research</a></li>
+        <li><a href="blog.html" data-en="Blog" data-np="ब्लग">Blog</a></li>
+        <li><a href="award.html" data-en="Awards" data-np="पुरस्कार">Awards</a></li>
+        <li><a href="contact.html" data-en="Contact" data-np="सम्पर्क">Contact</a></li>
+        <li><a href="appointment.html" class="active" data-en="Appointment" data-np="अपोइन्टमेन्ट">Appointment</a></li>
+        <li class="language-toggle" id="languageToggle"><i class="fas fa-globe"></i><span data-en="English" data-np="नेपाली">English</span></li>
+        <li><a href="#appointment-form" class="book-now-btn"><i class="fas fa-calendar-alt"></i><span data-en="Book Now" data-np="अहिले बुक गर्नुहोस्">Book Now</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="booking-hero">
+      <div class="hero-content">
+        <h1 data-en="Book Your Consultation" data-np="आफ्नो परामर्श बुक गर्नुहोस्">Book Your Consultation</h1>
+        <p data-en="with Dr. Deepa Chudal - Gynecologist & Infertility Expert" data-np="डा. दीपा चुडाल - स्त्री रोग तथा बाँझोपन विशेषज्ञसँग">with Dr. Deepa Chudal - Gynecologist & Infertility Expert</p>
+        <div style="margin-top: 2rem;"><span class="trust-badge" style="background: rgba(255,255,255,0.15); color: white; display: inline-flex;"><i class="fas fa-star"></i><span>4.9 ★ (160+ patient reviews)</span></span></div>
+      </div>
+      <div class="doctor-photo"><i class="fas fa-user-md"></i></div>
+    </section>
+
+    <div class="booking-grid">
+      <div>
+        <div class="form-card" id="appointment-form">
+          <div class="form-header">
+            <h2 data-en="Request an Appointment" data-np="अपोइन्टमेन्टको लागि अनुरोध गर्नुहोस्">Request an Appointment</h2>
+            <p data-en="Fill in your details below & we'll confirm within 24 hours" data-np="तल आफ्नो विवरण भर्नुहोस् र हामी २४ घण्टाभित्र पुष्टि गर्नेछौं">Fill in your details below & we'll confirm within 24 hours</p>
+          </div>
+          <div class="form-body">
+            <div id="form-status"></div>
+            <form class="appointment-form" id="appointmentForm">
+              <div class="form-section">
+                <div class="section-title"><i class="fas fa-user"></i><span data-en="Patient Details" data-np="बिरामी विवरण">Patient Details</span></div>
+                <div class="form-row">
+                  <div class="form-group"><label for="fullName" class="form-label"><span data-en="Full Name" data-np="पूरा नाम">Full Name</span><span class="required-star">*</span></label><input type="text" id="fullName" name="fullName" required class="form-input" placeholder="e.g., Sita Sharma" data-en-placeholder="e.g., Sita Sharma" data-np-placeholder="उदा., सीता शर्मा"></div>
+                  <div class="form-group"><label for="age" class="form-label"><span data-en="Age" data-np="उमेर">Age</span><span class="required-star">*</span></label><input type="number" id="age" name="age" required class="form-input" placeholder="e.g., 32" min="1" max="120"></div>
+                </div>
+              </div>
+              <div class="form-section">
+                <div class="section-title"><i class="fas fa-phone-alt"></i><span data-en="Contact Information" data-np="सम्पर्क जानकारी">Contact Information</span></div>
+                <div class="form-row">
+                  <div class="form-group"><label for="phoneNumber" class="form-label"><span data-en="Phone Number" data-np="फोन नम्बर">Phone Number</span><span class="required-star">*</span></label><input type="tel" id="phoneNumber" name="phoneNumber" required class="form-input" placeholder="+977-98XXXXXXXX"><div class="helper-text"><i class="fas fa-info-circle"></i><span data-en="We'll send SMS confirmation" data-np="हामी एसएमएस मार्फत पुष्टि पठाउनेछौं">We'll send SMS confirmation</span></div></div>
+                  <div class="form-group"><label for="emailAddress" class="form-label"><span data-en="Email Address" data-np="ईमेल ठेगाना">Email Address</span><span class="required-star">*</span></label><input type="email" id="emailAddress" name="emailAddress" required class="form-input" placeholder="patient@example.com"></div>
+                </div>
+              </div>
+              <div class="form-section">
+                <div class="section-title"><i class="fas fa-calendar-alt"></i><span data-en="Appointment Details" data-np="अपोइन्टमेन्ट विवरण">Appointment Details</span></div>
+                <div class="form-row"><div class="form-group"><label for="clinicLocation" class="form-label"><span data-en="Clinic Location" data-np="क्लिनिक स्थान">Clinic Location</span><span class="required-star">*</span></label><select id="clinicLocation" name="clinicLocation" required class="form-select" onchange="updateTimeSlots()"><option value="" data-en="Select a clinic" data-np="क्लिनिक छनौट गर्नुहोस्">Select a clinic</option><option value="Women's Wellness Clinic, Lagankhel" data-en="Women's Wellness Clinic, Lagankhel" data-np="विमेन्स वेलनेस क्लिनिक, लगनखेल">Women's Wellness Clinic, Lagankhel</option><option value="Fertility & Gynecology Center, Shankhamul" data-en="Fertility & Gynecology Center, Shankhamul" data-np="फर्टिलिटी एन्ड गाइनो सेन्टर, शंखमुल">Fertility & Gynecology Center, Shankhamul</option><option value="Maternity & Infertility Clinic, Dhangadhi" data-en="Maternity & Infertility Clinic, Dhangadhi" data-np="म्याटरनिटी एन्ड इन्फर्टिलिटी क्लिनिक, धनगढी">Maternity & Infertility Clinic, Dhangadhi</option><option value="Tele-Gynecology Consultation" data-en="Tele-Gynecology Consultation" data-np="टेलि-गाइनोकोलोजी परामर्श">Tele-Gynecology Consultation</option></select></div></div>
+                <div class="form-row"><div class="form-group"><label for="preferredDate" class="form-label"><span data-en="Preferred Date" data-np="प्राथमिक मिति">Preferred Date</span><span class="required-star">*</span></label><input type="date" id="preferredDate" name="preferredDate" required class="form-input" onchange="validateDate()"></div><div class="form-group"><label for="preferredTime" class="form-label"><span data-en="Preferred Time" data-np="प्राथमिक समय">Preferred Time</span><span class="required-star">*</span></label><select id="preferredTime" name="preferredTime" required class="form-select"></select></div></div>
+                <div class="form-group"><label for="reasonForVisit" class="form-label"><span data-en="Reason for Visit" data-np="भ्रमणको कारण">Reason for Visit</span><span class="required-star">*</span></label><select id="reasonForVisit" name="reasonForVisit" required class="form-select"><option value="" data-en="Select reason" data-np="कारण छनौट गर्नुहोस्">Select reason</option><option value="Infertility Evaluation" data-en="Infertility Evaluation" data-np="बाँझोपन मूल्याङ्कन">Infertility Evaluation</option><option value="PCOS Management" data-en="PCOS Management" data-np="पीसीओएस व्यवस्थापन">PCOS Management</option><option value="Menstrual Disorders" data-en="Menstrual Disorders" data-np="महिनावारी समस्या">Menstrual Disorders</option><option value="Pregnancy & Antenatal Care" data-en="Pregnancy & Antenatal Care" data-np="गर्भावस्था तथा प्रसवपूर्व हेरचाह">Pregnancy & Antenatal Care</option><option value="Menopause Management" data-en="Menopause Management" data-np="रजोनिवृत्ति व्यवस्थापन">Menopause Management</option><option value="Hormonal Imbalance" data-en="Hormonal Imbalance" data-np="हर्मोन असंतुलन">Hormonal Imbalance</option><option value="General Gynecology" data-en="General Gynecology" data-np="साधारण स्त्री रोग">General Gynecology</option></select></div>
+                <div class="form-group"><label for="additionalInfo" class="form-label"><span data-en="Additional Information" data-np="थप जानकारी">Additional Information</span></label><textarea id="additionalInfo" name="additionalInfo" rows="3" class="form-textarea" placeholder="Share any concerns or previous history..." data-en-placeholder="Share any concerns or previous history..." data-np-placeholder="कुनै चिन्ता वा पूर्व इतिहास साझा गर्नुहोस्..."></textarea></div>
+              </div>
+              <div class="checkbox-group"><input type="checkbox" id="consent" name="consent" required class="checkbox-input"/><label for="consent" class="checkbox-label"><span data-en="I consent to the collection and processing of my personal information for appointment scheduling. *" data-np="म अपोइन्टमेन्ट तालिकाको लागि मेरो व्यक्तिगत जानकारीको संग्रह र प्रशोधनमा सहमत छु। *">I consent to the collection and processing of my personal information for appointment scheduling. *</span></label></div>
+              <div class="cta-container"><button type="submit" class="btn btn-primary" id="submit-btn"><i class="fas fa-calendar-check"></i><span data-en="Confirm Appointment" data-np="अपोइन्टमेन्ट पुष्टि गर्नुहोस्">Confirm Appointment</span></button><div class="helper-text" style="justify-content: center;"><i class="fas fa-lock"></i><span data-en="Your information is secure & confidential" data-np="तपाईंको जानकारी सुरक्षित र गोप्य छ">Your information is secure & confidential</span></div></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-sidebar">
+        <div class="info-card"><h3><i class="fas fa-clock"></i><span data-en="Clinic Hours" data-np="क्लिनिक समय">Clinic Hours</span></h3>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><div class="info-item-content"><strong data-en="Women's Wellness Clinic, Lagankhel" data-np="विमेन्स वेलनेस क्लिनिक, लगनखेल">Women's Wellness Clinic, Lagankhel</strong><p data-en="Mon, Wed, Fri: 10AM-1PM, 4PM-7PM" data-np="सोम, बुध, शुक्र: १०AM-१PM, ४PM-७PM">Mon, Wed, Fri: 10AM-1PM, 4PM-7PM</p></div></div>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><div class="info-item-content"><strong data-en="Fertility & Gynecology Center, Shankhamul" data-np="फर्टिलिटी सेन्टर, शंखमुल">Fertility & Gynecology Center, Shankhamul</strong><p data-en="Tue, Thu, Sat: 10AM-2PM, 5PM-8PM" data-np="मंगल, बिही, शनि: १०AM-२PM, ५PM-८PM">Tue, Thu, Sat: 10AM-2PM, 5PM-8PM</p></div></div>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><div class="info-item-content"><strong data-en="Maternity & Infertility Clinic, Dhangadhi" data-np="धनगढी क्लिनिक">Maternity & Infertility Clinic, Dhangadhi</strong><p data-en="Saturday only: 9AM - 5PM" data-np="शनिबार मात्र: ९AM-५PM">Saturday only: 9AM - 5PM</p></div></div>
+          <div class="info-item"><i class="fas fa-laptop-medical"></i><div class="info-item-content"><strong data-en="Tele-Gynecology" data-np="टेलि-गाइनोकोलोजी">Tele-Gynecology</strong><p data-en="Daily flexible hours" data-np="दैनिक लचिलो समय">Daily flexible hours</p></div></div>
+        </div>
+        <div class="info-card"><h3><i class="fas fa-phone-alt"></i><span data-en="Contact Directly" data-np="सिधै सम्पर्क गर्नुहोस्">Contact Directly</span></h3>
+          <div class="info-item"><i class="fas fa-phone"></i><div class="info-item-content"><strong data-en="Lagankhel Clinic" data-np="लगनखेल क्लिनिक">Lagankhel Clinic</strong><p>+977-1-5420745</p></div></div>
+          <div class="info-item"><i class="fas fa-phone"></i><div class="info-item-content"><strong data-en="Shankhamul Center" data-np="शंखमुल सेन्टर">Shankhamul Center</strong><p>+977-1-5242511</p></div></div>
+          <div class="info-item"><i class="fas fa-phone"></i><div class="info-item-content"><strong data-en="Dhangadhi Clinic" data-np="धनगढी क्लिनिक">Dhangadhi Clinic</strong><p>+977-91-410107</p></div></div>
+          <div class="info-item"><i class="fas fa-mobile-alt"></i><div class="info-item-content"><strong data-en="Teleconsultation" data-np="टेलि परामर्श">Teleconsultation</strong><p>+977-9825207253</p></div></div>
+        </div>
+        <div class="info-card"><h3><i class="fas fa-shield-alt"></i><span data-en="Why Choose Us" data-np="हामी किन रोज्ने">Why Choose Us</span></h3>
+          <div class="trust-badge"><i class="fas fa-star"></i><div><strong data-en="4.9 Patient Rating" data-np="४.९ बिरामी मूल्याङ्कन">4.9 Patient Rating</strong><p data-en="160+ verified reviews" data-np="१६०+ प्रमाणित समीक्षाहरू">160+ verified reviews</p></div></div>
+          <div class="trust-badge"><i class="fas fa-certificate"></i><div><strong data-en="Board Certified Gynecologist" data-np="बोर्ड प्रमाणित स्त्री रोग विशेषज्ञ">Board Certified Gynecologist</strong><p data-en="Infertility Specialist" data-np="बाँझोपन विशेषज्ञ">Infertility Specialist</p></div></div>
+          <div class="trust-badge"><i class="fas fa-clock"></i><div><strong data-en="12+ Years Experience" data-np="१२+ वर्ष अनुभव">12+ Years Experience</strong><p data-en="Compassionate women's care" data-np="संवेदनशील महिला स्वास्थ्य सेवा">Compassionate women's care</p></div></div>
+          <div class="trust-badge"><i class="fas fa-lock"></i><div><strong data-en="100% Confidential" data-np="पूर्ण गोप्य">100% Confidential</strong><p data-en="Your privacy matters" data-np="तपाईंको गोपनीयता हाम्रो प्राथमिकता">Your privacy matters</p></div></div>
+        </div>
+        <div class="info-card"><div style="text-align:center"><i class="fas fa-check-circle" style="font-size:3rem; color:var(--accent); margin-bottom:1rem"></i><h3 data-en="Quick Response" data-np="छिटो प्रतिक्रिया">Quick Response</h3><p><span data-en="We respond to requests within" data-np="हामी अनुरोधहरूको जवाफ दिन्छौं">We respond to requests within</span><strong style="display:block; font-size:2rem; margin:0.5rem 0;">24 hours</strong></p><div class="helper-text"><i class="fas fa-bolt"></i><span data-en="Emergency? Call us directly" data-np="आपतकालिन? सिधै कल गर्नुहोस्">Emergency? Call us directly</span></div></div></div>
+      </div>
+    </div>
+  </main>
+  <footer><p>&copy; 2026 Dr. Deepa Chudal. All Rights Reserved.</p></footer>
+
+  <div class="floating-buttons"><a href="https://wa.me/9779825207253?text=Hello%20Dr.%20Deepa,%20I%20would%20like%20to%20book%20an%20appointment" class="floating-button whatsapp-button" target="_blank"><i class="fab fa-whatsapp"></i></a><button class="floating-button chat-button" id="chatButton"><i class="fas fa-comments"></i></button></div>
+  <div class="chat-container" id="chatContainer"><div class="chat-header"><h3 data-en="Chat with Us" data-np="हामीसँग कुरा गर्नुहोस्">Chat with Us</h3><button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button></div><div class="chat-messages" id="chatMessages"><div class="message bot"><span data-en="Hello! How can we assist with your gynecology or fertility needs today?" data-np="नमस्ते! आज हामी तपाईंको स्त्री रोग वा प्रजनन आवश्यकतामा कसरी सहयोग गर्न सक्छौं?">Hello! How can we assist with your gynecology or fertility needs today?</span></div></div><div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type your message..." data-en-placeholder="Type your message..." data-np-placeholder="आफ्नो सन्देश टाइप गर्नुहोस्..."><button id="sendMessage"><i class="fas fa-paper-plane"></i></button></div></div>
+
+  <script>
+    let currentLanguage = 'en';
+    const languageToggle = document.getElementById('languageToggle');
+    languageToggle.addEventListener('click', () => {
+      currentLanguage = currentLanguage === 'en' ? 'np' : 'en';
+      document.querySelectorAll('[data-en], [data-np]').forEach(el => { const txt = el.getAttribute(`data-${currentLanguage}`); if(txt) el.textContent = txt; });
+      document.querySelectorAll('[data-en-placeholder]').forEach(el => { const ph = el.getAttribute(`data-${currentLanguage}-placeholder`); if(ph) el.placeholder = ph; });
+      const toggleSpan = languageToggle.querySelector('span');
+      toggleSpan.textContent = currentLanguage === 'en' ? 'English' : 'नेपाली';
+      document.documentElement.dir = currentLanguage === 'np' ? 'rtl' : 'ltr';
+      updateLanguageOptions();
+    });
+    emailjs.init("nPsKsuZlR3ghah6k-");
+
+    function addOption(select, val, enText, npText) { const opt = document.createElement('option'); opt.value = val; opt.textContent = currentLanguage === 'en' ? enText : npText; opt.setAttribute('data-en', enText); opt.setAttribute('data-np', npText); select.appendChild(opt); }
+    function updateLanguageOptions() { const timeSelect = document.getElementById('preferredTime'); for(let i=0; i<timeSelect.options.length; i++){ const opt = timeSelect.options[i]; if(opt.value){ const txt = opt.getAttribute(`data-${currentLanguage}`); if(txt) opt.textContent = txt; } } }
+    function updateTimeSlots() {
+      const clinic = document.getElementById('clinicLocation').value;
+      const timeSelect = document.getElementById('preferredTime');
+      while(timeSelect.options.length > 0) timeSelect.remove(0);
+      if(clinic === "Women's Wellness Clinic, Lagankhel" || clinic === "Fertility & Gynecology Center, Shankhamul") {
+        addOption(timeSelect, 'Morning (10:00 AM - 1:00 PM)', 'Morning (10:00 AM - 1:00 PM)', 'बिहान (१०:०० बिहान - १:०० दिउँसो)');
+        addOption(timeSelect, 'Evening (4:00 PM - 7:00 PM)', 'Evening (4:00 PM - 7:00 PM)', 'साँझ (४:०० बेलुका - ७:०० बेलुका)');
+      } else if(clinic === "Maternity & Infertility Clinic, Dhangadhi") {
+        addOption(timeSelect, 'Saturday Only (9:00 AM - 5:00 PM)', 'Saturday Only (9:00 AM - 5:00 PM)', 'शनिबार मात्र (९:०० बिहान - ५:०० बेलुका)');
+      } else if(clinic === "Tele-Gynecology Consultation") {
+        addOption(timeSelect, 'Tele-Gynecology (Flexible Hours)', 'Tele-Gynecology (Flexible Hours)', 'टेलि-गाइनोकोलोजी (लचिलो समय)');
+      } else { addOption(timeSelect, 'Morning (10:00 AM - 1:00 PM)', 'Morning (10:00 AM - 1:00 PM)', 'बिहान (१०:०० बिहान - १:०० दिउँसो)'); addOption(timeSelect, 'Evening (4:00 PM - 7:00 PM)', 'Evening (4:00 PM - 7:00 PM)', 'साँझ (४:०० बेलुका - ७:०० बेलुका)'); }
+      updateLanguageOptions();
+    }
+    function validateDate() {
+      const clinic = document.getElementById('clinicLocation').value;
+      const dateInput = document.getElementById('preferredDate');
+      if(!dateInput.value) return;
+      const selected = new Date(dateInput.value);
+      const day = selected.getDay();
+      if(clinic === "Maternity & Infertility Clinic, Dhangadhi" && day !== 6) { alert('Maternity & Infertility Clinic, Dhangadhi is only available on Saturdays. Please select a Saturday.'); dateInput.value = ''; }
+      else if(clinic !== "Tele-Gynecology Consultation" && clinic !== "Maternity & Infertility Clinic, Dhangadhi" && day === 6) { alert('No in-person appointments on Saturdays except Dhangadhi clinic. Please choose another weekday or select Tele-Gynecology.'); dateInput.value = ''; }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('appointmentForm');
+      const submitBtn = document.getElementById('submit-btn');
+      const statusDiv = document.getElementById('form-status');
+      const preferredDate = document.getElementById('preferredDate');
+      preferredDate.min = new Date().toISOString().split('T')[0];
+      updateTimeSlots();
+      function showStatus(msg, type) { statusDiv.innerHTML = `<div class="status-message status-${type}"><i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}"></i>${msg}</div>`; statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => statusDiv.innerHTML = '', 7000); }
+      function setLoading(loading) { if(loading) { submitBtn.innerHTML = '<span class="spinner"></span> Processing...'; submitBtn.disabled = true; } else { submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirm Appointment'; submitBtn.disabled = false; } }
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('fullName').value, age = document.getElementById('age').value, phone = document.getElementById('phoneNumber').value, email = document.getElementById('emailAddress').value, clinic = document.getElementById('clinicLocation').value, date = document.getElementById('preferredDate').value, time = document.getElementById('preferredTime').value, reason = document.getElementById('reasonForVisit').value, addInfo = document.getElementById('additionalInfo').value, consent = document.getElementById('consent').checked;
+        if(!fullName || !age || !phone || !email || !clinic || !date || !time || !reason || !consent) { showStatus('Please fill all required fields and provide consent.', 'error'); return; }
+        if(age<1 || age>120) { showStatus('Enter a valid age (1-120).', 'error'); return; }
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showStatus('Valid email required.', 'error'); return; }
+        const selectedDate = new Date(date); if(selectedDate < new Date(preferredDate.min)) { showStatus('Select a future date.', 'error'); return; }
+        setLoading(true);
+        emailjs.send('service_z7z2n3h', 'template_hqr000g', { from_name: fullName, age: age, phone_number: phone, reply_to: email, clinic_location: clinic, preferred_date: date, preferred_time: time, reason_for_visit: reason, additional_info: addInfo || 'N/A', submitted_at: new Date().toLocaleString() }).then(() => { showStatus('Thank you! We will contact you within 24 hours to confirm your appointment.', 'success'); form.reset(); preferredDate.min = new Date().toISOString().split('T')[0]; updateTimeSlots(); }).catch(() => { showStatus('Submission error. Please call us directly.', 'error'); }).finally(() => setLoading(false));
+      });
+      // chat widget
+      const chatBtn = document.getElementById('chatButton'), chatCont = document.getElementById('chatContainer'), closeChat = document.getElementById('closeChat'), chatMessages = document.getElementById('chatMessages'), chatInput = document.getElementById('chatInput'), sendMsg = document.getElementById('sendMessage');
+      chatBtn.onclick = () => chatCont.classList.toggle('active');
+      closeChat.onclick = () => chatCont.classList.remove('active');
+      const sendChatMessage = () => { const msg = chatInput.value.trim(); if(msg) { const userDiv = document.createElement('div'); userDiv.className = 'message user'; userDiv.textContent = msg; chatMessages.appendChild(userDiv); chatInput.value = ''; chatMessages.scrollTop = chatMessages.scrollHeight; setTimeout(() => { const botDiv = document.createElement('div'); botDiv.className = 'message bot'; botDiv.innerHTML = `<span data-en="Thank you for reaching out! Our gynecology team will respond shortly. For urgent matters, please call us." data-np="सम्पर्कको लागि धन्यवाद! हाम्रो टोलीले चाँडै जवाफ दिनेछ। तत्कालका लागि कल गर्नुहोस्।">Thank you for reaching out! Our gynecology team will respond shortly. For urgent matters, please call us.</span>`; chatMessages.appendChild(botDiv); chatMessages.scrollTop = chatMessages.scrollHeight; }, 800); } };
+      sendMsg.onclick = sendChatMessage; chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendChatMessage(); });
+    });
+  </script>
+</body>
+</html>
